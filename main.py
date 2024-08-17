@@ -3,7 +3,7 @@ from streamlit_chat import message
 from dotenv import load_dotenv
 import os
 from langchain_openai import ChatOpenAI
-# from langchain.chat_models import ChatOpenAI
+
 from langchain.schema import (
     SystemMessage, 
     HumanMessage,
@@ -37,18 +37,15 @@ def main():
 
     st.header( "Your Own ChatGPt 🐸️")
 
-    # message("Hello how are you?")
-    # message("I am good", is_user=True)
     with st.sidebar:
         user_input=st.text_input("Your Message: ", key="user_input")
 
         if user_input:
-            # message(user_input, is_user=True)
+           
             st.session_state.messages.append(HumanMessage(content=user_input))
             with st.spinner("Thinking..."):
                 response = chat(st.session_state.messages)
             st.session_state.messages.append(AIMessage(content=response.content))
-            # message(response.content, is_user=False)
 
     messages = st.session_state.get('messages', [])
     for i, msg in enumerate(messages[1:]):
